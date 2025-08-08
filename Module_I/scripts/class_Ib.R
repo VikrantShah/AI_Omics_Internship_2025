@@ -1,0 +1,80 @@
+# --------------------------------------------------------------------------
+#### Tasks ####
+
+getwd()
+# Getting the current directory
+
+# 1. Set Working Directory
+# Create a new folder on your computer "AI_Omics_Internship_2025".
+setwd("C:\\AI_Omics_Internship_2025\\Module_I")
+
+# 2. Create Project Folder
+
+# In RStudio, create a new project named "Module_I" in your "AI_Omics_Internship_2025" folder.
+getwd()
+
+# Inside the project directory, create the following subfolders using R code:
+# raw_data, clean_data, scripts, results or Tasks, plots etc
+dir.create("raw_data")
+dir.create("clean_data")
+dir.create("scripts")
+dir.create("results")
+dir.create("plots")
+
+# ---------------------------------------------------------------------------
+# 3. Download "patient_info.csv" dataset from GitHub repository
+
+# load the dataset into your R environment
+data = read.csv(file.choose())
+
+View(data)
+
+# Inspect the structure of the dataset using appropriate R functions
+str(data)
+
+# Identify variables with incorrect or inconsistent data types.
+## The incorrect variables are gender, diagnosis and smoker
+
+# Convert variables to appropriate data types where needed
+
+## Convert gender into factor
+data$gender_fac = as.factor(data$gender)
+str(data)
+
+### Relevel gender factor
+data$gender_fac = factor(data$gender_fac,
+                         levels = c("Male", "Female"))
+str(data)
+
+## Convert diagnosis into factor
+data$diagnosis_fac = as.factor(data$diagnosis)
+str(data)
+
+### Relevel diagnosis factor
+data$diagnosis_fac = factor(data$diagnosis_fac,
+                         levels = c("Normal", "Cancer"))
+str(data)
+
+
+# Create a new variable for smoking status as a binary factor:
+# 1 for "Yes", 0 for "No"
+## Convert smoker into factor
+data$smoker_fac = as.factor(data$smoker)
+str(data)
+
+### Convert smoker to 1 for "Yes", 0 for "No"
+data$smoker_fac = ifelse(data$smoker_fac == "Yes", 1, 0)
+str(data)
+
+### Convert smoker numeric to factor
+data$smoker_fac = as.factor(data$smoker_fac)
+str(data)
+
+# Save the cleaned dataset in your clean_data folder with the name patient_info_clean.csv
+write.csv(data, file = "clean_data\\patient_info_clean.csv")
+
+# Save your R script in your script folder with name "class_Ib"
+
+# Upload "class_Ib" R script into your GitHub repository
+save(data, file = "VikrantShah_Class_Ib_Assignment.RData")
+
